@@ -251,18 +251,16 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 <footer><div class="wrap"><span>© <span id="yr"></span> Champêtre, Toulouse</span><a href="https://www.instagram.com/champetre.toulouse/" target="_blank" rel="noopener">Instagram @champetre.toulouse</a></div></footer>
 
 <script>
-/* ============ À PERSONNALISER ============ */
 const CONFIG = {
-  email: "contact@exemple.fr",        // ← e-mail qui recevra les demandes
-  phone: "+33500000000",              // ← numéro du restaurant
+  
+  email: "moy.chloe@gmail.com",
+  phone: "+33500000000",
   maxGuests: 12,
-  // jours : 0 = dimanche … 6 = samedi
   services: {
     midi: { days: [2,3,4,5,6], slots: ["12:00","12:30","13:00","13:30"] },
     soir: { days: [4,5,6],     slots: ["19:00","19:30","20:00","20:30","21:00"] }
   }
 };
-/* ========================================= */
 
 const $ = s => document.querySelector(s);
 const state = { guests: 2, svc: null, slot: null };
