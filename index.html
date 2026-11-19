@@ -89,6 +89,27 @@ h2.title{font-family:var(--brand);font-weight:400;font-size:clamp(1.9rem,3.6vw,2
   radial-gradient(circle at 78% 18%,#F5E9A8 0,transparent 16%),linear-gradient(160deg,#9BCB8E,var(--green) 55%,#245C38)}
 .ph small{position:absolute;left:16px;bottom:14px;right:16px;color:rgba(255,255,255,.8);font-size:.8rem}
 .ph.garden small{bottom:auto;top:14px}
+/* Carrousel photos */
+.carousel{position:relative;aspect-ratio:4/5;border-radius:200px 200px 16px 16px;overflow:hidden;background:var(--ink)}
+.carousel.garden{border-radius:16px 16px 200px 200px}
+.track{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.track::-webkit-scrollbar{display:none}
+.slide{flex:0 0 100%;height:100%;scroll-snap-align:center;position:relative}
+.slide img{width:100%;height:100%;object-fit:cover;display:block}
+.slide figcaption{position:absolute;left:16px;right:16px;bottom:60px;text-align:center;color:rgba(255,255,255,.85);font-size:.8rem}
+.f1{background:radial-gradient(circle at 50% 108%,#F2A33C 0,#D2491F 24%,transparent 46%),linear-gradient(#3B2B20,#1B130E)}
+.f2{background:linear-gradient(160deg,#7A3B1F,#3B1E10)}
+.f3{background:linear-gradient(160deg,#C98A5B,#6B3A22)}
+.f4{background:linear-gradient(160deg,#5C4632,#2A1F16)}
+.g1{background:radial-gradient(circle at 78% 18%,#F5E9A8 0,transparent 16%),linear-gradient(160deg,#9BCB8E,var(--green) 55%,#245C38)}
+.g2{background:linear-gradient(160deg,#7FB77A,#2F7A48)}
+.g3{background:linear-gradient(160deg,#B7D99A,#3A9A58)}
+.car-btn{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:0;background:rgba(251,253,248,.92);color:var(--ink);font-size:1.5rem;line-height:1;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.car-btn:hover{background:#fff}
+.car-btn.prev{left:12px}.car-btn.next{right:12px}
+.dots{position:absolute;bottom:22px;left:0;right:0;display:flex;justify-content:center;gap:8px}
+.dots button{width:10px;height:10px;padding:0;border:0;border-radius:6px;background:rgba(255,255,255,.55);cursor:pointer;transition:width .2s}
+.dots button[aria-current="true"]{width:26px;background:#fff}
 .alt-bg{background:var(--paper-2)}
 .cap{display:flex;gap:40px;margin-top:28px;flex-wrap:wrap}
 .cap div{font-size:.95rem;color:var(--ink-soft)}
@@ -107,7 +128,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 
 <div class="top">
   <div class="nav">
-    <a class="logo" href="#">CHAMPÊTRE</a>
+    <a class="logo" href="#">CHAMPÈTRE</a>
     <nav><a class="link" href="#cuisine">La cuisine</a><a class="link" href="#jardin">Le jardin</a><a class="link" href="#infos">Venir</a></nav>
   </div>
 </div>
@@ -186,13 +207,29 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
         <p>Champêtre sert une cuisine traditionnelle française, construite sur des produits frais, locaux et de saison. Les grillades passent au feu de bois, dans l’une des deux salles.</p>
         <p>La carte suit les saisons et les arrivages : consultez-la au restaurant le jour même.</p>
       </div>
-      <div class="ph" role="img" aria-label="Braise du feu de bois"><small>Remplacez par une photo du feu de bois ou d’un plat</small></div>
+      <!-- Pour mettre vos photos : remplacez chaque <figure class="slide f1">…</figure>
+           par  <figure class="slide"><img src="photos/feu-1.jpg" alt="Description de la photo" loading="lazy"></figure>
+           Ajoutez ou retirez des <figure> librement : les points se mettent à jour tout seuls. -->
+      <div class="carousel" role="region" aria-roledescription="carrousel" aria-label="Photos de la cuisine">
+        <div class="track" tabindex="0">
+          <figure class="slide"><img src="photos/grill.jpg" alt="Description de la photo" loading="lazy"></figure>
+          <figure class="slide"><img src="photos/cuisine.jpg" alt="Description de la photo" loading="lazy"></figure>
+          <figure class="slide"><img src="photos/plat.jpg" alt="Description de la photo" loading="lazy"></figure>
+          <figure class="slide"><img src="photos/plat 2.jpg" alt="Description de la photo" loading="lazy"></figure>
+        </div>
+      </div>
     </div>
   </section>
 
   <section class="block" id="jardin">
     <div class="wrap split">
-      <div class="ph garden" role="img" aria-label="Jardin ombragé"><small>Remplacez par une photo du jardin</small></div>
+      <div class="carousel garden" role="region" aria-roledescription="carrousel" aria-label="Photos du jardin">
+        <div class="track" tabindex="0">
+          <figure class="slide g1"><figcaption>Photo 1 : le jardin</figcaption></figure>
+          <figure class="slide g2"><figcaption>Photo 2 : la terrasse</figcaption></figure>
+          <figure class="slide g3"><figcaption>Photo 3 : une tablée</figcaption></figure>
+        </div>
+      </div>
       <div>
         <h2 class="title">L’été, on mange dans le jardin.</h2>
         <p>Deux salles à l’intérieur, et un vaste jardin ombragé dès les beaux jours. De quoi réunir une tablée d’amis, une équipe ou une famille entière.</p>
@@ -296,6 +333,41 @@ document.querySelectorAll("[data-svc]").forEach(b=>{
   };
 });
 dateEl.addEventListener("change", ()=>{ state.slot=null; refresh(); });
+
+/* ===== Carrousels photos ===== */
+document.querySelectorAll(".carousel").forEach(car=>{
+  const track = car.querySelector(".track");
+  const slides = [...track.children];
+  const dots = document.createElement("div"); dots.className = "dots";
+  const mk = (cls, label, txt) => { const b = document.createElement("button"); b.type="button"; b.className="car-btn "+cls; b.setAttribute("aria-label",label); b.textContent=txt; return b; };
+  const prev = mk("prev","Photo précédente","‹"), next = mk("next","Photo suivante","›");
+  let timer = null, userStopped = false;
+
+  const go = i => track.scrollTo({ left: ((i + slides.length) % slides.length) * track.clientWidth, behavior: "smooth" });
+  const current = () => Math.round(track.scrollLeft / track.clientWidth);
+
+  slides.forEach((_, i)=>{
+    const d = document.createElement("button"); d.type="button"; d.setAttribute("aria-label", `Photo ${i+1} sur ${slides.length}`);
+    d.onclick = ()=>{ userStopped = true; go(i); }; dots.appendChild(d);
+  });
+  prev.onclick = ()=>{ userStopped = true; go(current()-1); };
+  next.onclick = ()=>{ userStopped = true; go(current()+1); };
+  car.append(prev, next, dots);
+
+  const sync = ()=>[...dots.children].forEach((d,i)=>d.setAttribute("aria-current", String(i===current())));
+  track.addEventListener("scroll", sync, {passive:true}); sync();
+  track.addEventListener("keydown", e=>{ if(e.key==="ArrowRight") go(current()+1); if(e.key==="ArrowLeft") go(current()-1); });
+  track.addEventListener("touchstart", ()=>userStopped = true, {passive:true});
+
+  // défilement automatique (désactivé si l’utilisateur préfère moins d’animations)
+  if(!matchMedia("(prefers-reduced-motion: reduce)").matches && slides.length > 1){
+    const start = ()=>{ stop(); timer = setInterval(()=>{ if(!userStopped) go(current()+1); }, 4500); };
+    const stop = ()=>{ clearInterval(timer); };
+    car.addEventListener("mouseenter", stop); car.addEventListener("mouseleave", start);
+    car.addEventListener("focusin", stop); car.addEventListener("focusout", start);
+    start();
+  }
+});
 
 $("#form").addEventListener("submit", e=>{
   e.preventDefault();
