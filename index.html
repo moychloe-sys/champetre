@@ -253,7 +253,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 <script>
 const CONFIG = {
   
-  email: "moy.chloe@gmail.com",
+  email: "test@test.com",
   phone: "+33500000000",
   maxGuests: 12,
   services: {
@@ -329,7 +329,6 @@ document.querySelectorAll("[data-svc]").forEach(b=>{
 });
 dateEl.addEventListener("change", ()=>{ state.slot=null; refresh(); });
 
-/* ===== Carrousels photos ===== */
 document.querySelectorAll(".carousel").forEach(car=>{
   const track = car.querySelector(".track");
   const slides = [...track.children];
@@ -354,7 +353,6 @@ document.querySelectorAll(".carousel").forEach(car=>{
   track.addEventListener("keydown", e=>{ if(e.key==="ArrowRight") go(current()+1); if(e.key==="ArrowLeft") go(current()-1); });
   track.addEventListener("touchstart", ()=>userStopped = true, {passive:true});
 
-  // défilement automatique (désactivé si l’utilisateur préfère moins d’animations)
   if(!matchMedia("(prefers-reduced-motion: reduce)").matches && slides.length > 1){
     const start = ()=>{ stop(); timer = setInterval(()=>{ if(!userStopped) go(current()+1); }, 4500); };
     const stop = ()=>{ clearInterval(timer); };
